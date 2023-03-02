@@ -17,7 +17,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.littlelemon.ui.theme.LittleLemonTheme
-
 class LoginScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +28,7 @@ class LoginScreen : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Login()
+
                 }
             }
         }
