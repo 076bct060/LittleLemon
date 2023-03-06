@@ -1,6 +1,8 @@
 package com.example.littlelemon
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 
@@ -23,78 +25,86 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
 
-//           HomeScreen()
-
-                AddItem()
-
+//
+            HomeScreen()
 
 
-
-            }
         }
     }
+}
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@Composable
+fun HomeScreen() {
+    val scaffoldState= rememberScaffoldState()
+    val scope= rememberCoroutineScope()
+    Scaffold(
+        scaffoldState = scaffoldState,
+        drawerContent = { DrawerPanel(scaffoldState = scaffoldState, scope = scope)}
+        ,topBar = {
+        TopBar(scaffoldState,scope)
+    }) {
+        Column() {
+            uppperPannel()
+            LowerPanel()
+
+
+        }
+    }
+}
 //@Composable
-//fun HomeScreen(){
-//    Column() {
-//        uppperPannel()
-//        LowerPanel()
+//fun AppScreen()
+//{
+//    var count by rememberSaveable() {
+//        mutableStateOf(0)
+//    }
+//    AddItem(count = count,{count++},{count--})
+//}
+//@Composable
+//fun AddItem(count:Int,onIncrement:()->Unit,onDecrement:()->Unit)
+//{
+//
+//    Column( modifier = Modifier.fillMaxSize(),
+//    horizontalAlignment = Alignment.CenterHorizontally
+//    , verticalArrangement = Arrangement.Center) {
+//        Card(modifier = Modifier.fillMaxWidth(), elevation = 30.dp) {
+//            Column(horizontalAlignment = Alignment.Start, modifier = Modifier.padding(20.dp)) {
+//                Text("Greek Salad",
+//                    fontSize = 30.sp,
+//                    fontWeight = FontWeight.Bold
+//                )
+//                Row( modifier = Modifier.fillMaxWidth(),verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.Center) {
+//                    IconButton(onClick = {onDecrement }) {
+//                        Icon(imageVector = Icons.Default.Remove, contentDescription ="Remove" )
+//                    }
+//                    Text(text = count.toString(), fontWeight = FontWeight.Bold, fontSize = 32.sp)
+//                    IconButton(onClick = {onIncrement}) {
+//                        Icon(imageVector = Icons.Default.Add, contentDescription ="Add count" )
+//                    }
+//                }
+//                Button(onClick = { /*TODO*/ }) {
+//                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+//                        Text("Add")
+//
+//                    }
+//
+//                }
+//            }
+//
+//        }
+//
 //
 //    }
+//
 //}
-@Composable
-private fun AddItem()
-{
-    var count by rememberSaveable() {
-        mutableStateOf(0)
-    }
-    Column( modifier = Modifier.fillMaxSize(),
-    horizontalAlignment = Alignment.CenterHorizontally
-    , verticalArrangement = Arrangement.Center) {
-        Card(modifier = Modifier.fillMaxWidth(), elevation = 30.dp) {
-            Column(horizontalAlignment = Alignment.Start, modifier = Modifier.padding(20.dp)) {
-                Text("Greek Salad",
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Row( modifier = Modifier.fillMaxWidth(),verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center) {
-                    IconButton(onClick = { count-- }) {
-                        Icon(imageVector = Icons.Default.Remove, contentDescription ="Remove" )
-                    }
-                    Text(text = count.toString(), fontWeight = FontWeight.Bold, fontSize = 32.sp)
-                    IconButton(onClick = { count++ }) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription ="Add count" )
-                    }
-                }
-                Button(onClick = { /*TODO*/ }) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                        Text("Add")
-
-                    }
-
-                }
-            }
-
-        }
-
-
-    }
-
-}
 
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun AddItemPreview(){
-    AddItem()
-}
